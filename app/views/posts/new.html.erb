@@ -1,0 +1,11 @@
+<div class="contents row">
+  <div class="container">
+    <%= form_with(model: @post, local: true) do |form| %>
+      <h3>
+        tweet
+      </h3>
+      <%# <%= form.text_field :name, placeholder: "Nickname" %>
+      <%= render patial: "form", locals: { form: form }%>
+    <% end %>
+  </div>
+</div>
