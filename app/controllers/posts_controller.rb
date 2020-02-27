@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
-  before_action :post_edit_show, only:[:edit, :show]
+  # before_action :post_edit_show, only:[:edit, :show]
   before_action :move_to_index, except: [:index, :show, :search]
 
   def index
     @posts = Post.includes(:user).order("created_at DESC").page(params[:page]).per(5)
-    # @posts = Post.all
+    
   end
 
   def new
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
   end  
 
   def edit
-   
+    @post = Post.find(params[:id])
   end
 
   def update
@@ -30,6 +30,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments.includes(:user)
   end
@@ -43,9 +44,6 @@ class PostsController < ApplicationController
     params.require(:post).permit(:text, :image).merge(user_id: current_user.id)
   end 
 
-  def post_edit_show
-    @post = Post.find(params[:id])
-  end
 
   def move_to_index
     redirect_to action: :index unless user_signed_in?
