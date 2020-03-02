@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+  <% if post.like_user(current_user.id) %>
+    <%= button_to post_like_path(post_id: post.id, id: post.id), method: :delete do %>
+    <i class="fas fa-star"></i>
+    <% end %>
+  <% else %>
+    <%= button_to post_likes_path(post), method: :post do %>
+    <i class="far fa-star"></i>
+      <span>
+        aaa
+      </span>
+    <% end %>
+  <% end %>
+<% else %>
+  <i class="far fa-star"></i>
+<% end %>
